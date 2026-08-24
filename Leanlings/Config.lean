@@ -239,6 +239,242 @@ def intro : Course :=
     "Programming and theorem proving fundamentals — 70 exercises across 27 units."
     introExercises (welcome := introWelcome) (final := introFinal)
 
+private def introPtExercises : Array Exercise := #[
+  -- 00_intro
+  { name := "intro1", dir := "00_intro",
+    hint := "Em Lean, strings são escritas entre aspas duplas, como \"hello\".\nQual string o #guard verifica?" },
+  { name := "intro2", dir := "00_intro",
+    hint := "Olhe o tipo depois dos dois-pontos — ele diz `Nat` (número natural).\nQue tipo de valor é \"seven\"? Troque para corresponder ao tipo." },
+  { name := "intro3", dir := "00_intro",
+    hint := "Leia cada mensagem de erro com atenção. Ela diz o que o Lean esperava\nversus o que recebeu. Corrija cada valor ou tipo para resolver a incompatibilidade." },
+
+  -- 01_basics
+  { name := "basics1", dir := "01_basics",
+    hint := "Lean suporta operadores aritméticos: +, -, *, /, ^.\nVocê consegue escrever expressões que avaliam para os valores certos?\nTente `#eval 6 * 7` no seu editor para conferir." },
+  { name := "basics2", dir := "01_basics",
+    hint := "Cada tipo precisa de um valor daquele tipo:\n`Nat` → números como 0, 1, 42\n`String` → texto entre aspas como \"hello\"\n`Bool` → true ou false\nCertifique-se de que sua string não está vazia!" },
+  { name := "basics3", dir := "01_basics",
+    hint := "Use `++` para concatenar strings: \"Hello, \" ++ \"Lean!\".\nUse `s!\"...{variable}...\"` para interpolação de strings." },
+  { name := "basics4", dir := "01_basics",
+    hint := "Operadores booleanos combinam valores Bool.\nO que faz E (&&)? O que faz OU (||)? O que faz NÃO (!)?\nPense na tabela-verdade." },
+
+  -- 02_definitions
+  { name := "defs1", dir := "02_definitions",
+    hint := "Use `#eval` no seu editor para calcular valores.\nPor exemplo, tente `#eval 2 ^ 10` para ver o que dá." },
+  { name := "defs2", dir := "02_definitions",
+    hint := "Uma função recebe parâmetros antes do tipo de retorno.\nQue expressão usando o parâmetro dá o resultado certo?" },
+  { name := "defs3", dir := "02_definitions",
+    hint := "A palavra-chave `let` cria um nome local para um valor.\nA expressão final do bloco é o que é retornado." },
+
+  -- 03_functions
+  { name := "functions1", dir := "03_functions",
+    hint := "Como você multiplicaria um número por 3? Há várias formas." },
+  { name := "functions2", dir := "03_functions",
+    hint := "Use os dois parâmetros no corpo da função para calcular o resultado." },
+  { name := "functions3", dir := "03_functions",
+    hint := "Funções anônimas começam com `fun`, seguido dos parâmetros, depois `=>`.\nPor exemplo: `fun x => x + 1`." },
+  { name := "functions4", dir := "03_functions",
+    hint := "`.map` aplica uma função a cada elemento.\n`.filter` mantém os elementos que satisfazem um predicado.\n`.foldl f init` combina elementos: `foldl (· + ·) 0` soma uma lista.\nO atalho `·` representa o argumento." },
+
+  -- 04_control_flow
+  { name := "if1", dir := "04_control_flow",
+    hint := "`if/then/else` em Lean: `if condition then value1 else value2`.\nOs dois ramos devem retornar o mesmo tipo.\nQue condição distingue números negativos de não negativos?" },
+  { name := "if2", dir := "04_control_flow",
+    hint := "Você pode encadear `if/then/else`.\nVerifique cada condição em ordem, da mais específica para a mais geral." },
+  { name := "match1", dir := "04_control_flow",
+    hint := "`Option` tem dois construtores: `some val` e `none`.\nCase os dois casos e trate-os de forma diferente." },
+
+  -- 05_structures
+  { name := "structs1", dir := "05_structures",
+    hint := "Crie uma struct com a sintaxe `{ fieldName := value, ... }`.\nQuais campos a estrutura tem?" },
+  { name := "structs2", dir := "05_structures",
+    hint := "Acesse campos com notação de ponto: `p.firstName`, `p.age`.\nPara `birthday`, use a sintaxe de atualização: `{ p with age := ... }`." },
+  { name := "structs3", dir := "05_structures",
+    hint := "Quando um campo tem um valor padrão, você pode omiti-lo.\nO que acontece se você omitir todos os campos? E se sobrescrever só um?" },
+
+  -- 06_inductive
+  { name := "inductive1", dir := "06_inductive",
+    hint := "Case os padrões em cada construtor.\nO prefixo `.` (como `.north`) funciona quando o Lean sabe o tipo esperado." },
+  { name := "inductive2", dir := "06_inductive",
+    hint := "Case os padrões para extrair dados dos construtores.\nUse `_` para ignorar dados que você não precisa." },
+  { name := "inductive3", dir := "06_inductive",
+    hint := "Para `isNum`, verifique se o construtor de nível mais alto é `.num`.\nPara `sampleExpr`, construa a árvore de expressão usando os construtores." },
+
+  -- 07_recursion
+  { name := "recursion1", dir := "07_recursion",
+    hint := "Toda função recursiva sobre Nat precisa de dois casos:\n• caso base (0): o que ela deve retornar?\n• caso recursivo (n+1): como ele se relaciona com o resultado para n?\nO Lean exige recursão estruturalmente decrescente." },
+  { name := "recursion2", dir := "07_recursion",
+    hint := "Recursão sobre List também precisa de dois casos:\n• lista vazia []: qual é o valor base?\n• head :: tail: como combinar o head com o resultado recursivo?" },
+  { name := "recursion3", dir := "07_recursion",
+    hint := "O acumulador começa vazio e vai construindo o resultado.\nPara inverter, o que você deve fazer com cada elemento head?" },
+  { name := "recursion4", dir := "07_recursion",
+    hint := "Case cada construtor: `.num n`, `.add a b`, `.mul a b`.\nPara construtores recursivos, chame a função em cada subexpressão.\nIsso é recursão estrutural — toda chamada é sobre uma peça menor." },
+
+  -- 08_proving_code
+  { name := "proving1", dir := "08_proving_code",
+    hint := "`rfl` prova que duas expressões são iguais quando elas\ncomputam para o mesmo valor. É só tentar!" },
+  { name := "proving2", dir := "08_proving_code",
+    hint := "Para valores concretos, `rfl` funciona. Para variáveis, tente\n`simp [functionName]` para desdobrar a definição,\ndepois `omega` para aritmética." },
+  { name := "proving3", dir := "08_proving_code",
+    hint := "`simp [f]` desdobra a função `f`. `omega` trata aritmética\nsobre números naturais. Tente combiná-las: `simp [f]; omega`." },
+
+  -- 09_propositions
+  { name := "props1", dir := "09_propositions",
+    hint := "`True.intro` prova `True`. `rfl` prova `a = a`.\nAmbas são simples — só forneça o termo de prova certo." },
+  { name := "props2", dir := "09_propositions",
+    hint := "Para `A ∧ B`, forneça as duas provas com `⟨proof_a, proof_b⟩`.\nPara `A ∨ B`, escolha um lado com `Or.inl` ou `Or.inr`." },
+  { name := "props3", dir := "09_propositions",
+    hint := "Uma prova de `A → B` é uma função: `fun (h : A) => ...prova de B...`.\nNegação `¬A` significa `A → False`.\n`absurd h hn` deriva qualquer coisa a partir de `h : P` e `hn : ¬P`." },
+
+  -- 10_tactics
+  { name := "tactics1", dir := "10_tactics",
+    hint := "`intro` move uma hipótese do objetivo para o seu contexto.\n`exact` fecha o objetivo com um termo do tipo certo.\nComece com `intro`, termine com `exact`." },
+  { name := "tactics2", dir := "10_tactics",
+    hint := "`apply f` trabalha de trás para frente a partir do objetivo.\n`constructor` divide `A ∧ B` em dois subobjetivos.\nUse `h.left` e `h.right` (ou `h.1`, `h.2`) para as partes da conjunção." },
+  { name := "tactics3", dir := "10_tactics",
+    hint := "`rw [h]` substitui o lado esquerdo de `h` pelo lado direito no seu objetivo.\n`rw [← h]` vai na direção contrária." },
+  { name := "tactics4", dir := "10_tactics",
+    hint := "Tente a tática mais poderosa para cada objetivo:\n`omega` para aritmética, `simp` para simplificação,\n`decide` para proposições finitas/decidíveis." },
+
+  -- 11_induction
+  { name := "induction1", dir := "11_induction",
+    hint := "O primeiro teorema é verdadeiro por definição — tente `rfl`.\nPara o segundo, use `induction n with`, depois trate os casos `zero` e `succ`.\nNo caso `succ`, `unfold myAdd` expõe a equação recursiva\n(ou use `simp [myAdd]`), depois reescreva com a hipótese de indução `ih`." },
+  { name := "induction2", dir := "11_induction",
+    hint := "Faça indução na primeira lista. Em cada caso, tente `simp [myLength]`\ne use a hipótese de indução." },
+
+  -- 12_typeclasses
+  { name := "typeclasses1", dir := "12_typeclasses",
+    hint := "Implemente `toString` casando padrões em cada construtor.\nRetorne uma string descritiva para cada um." },
+  { name := "typeclasses2", dir := "12_typeclasses",
+    hint := "`beq` deve retornar `true` quando os dois valores forem o mesmo\nconstrutor, `false` caso contrário. Use casamento de padrões aninhado." },
+
+  -- 13_quiz
+  { name := "quiz1", dir := "13_quiz",
+    hint := "Este quiz não tem dicas — leia cada comentário com atenção.\nVocê tem todas as ferramentas: structs, indutivos, casamento de padrões,\nrecursão, funções de alta ordem, type classes e provas por tática." },
+
+  -- 14_do_notation
+  { name := "do1", dir := "14_do_notation",
+    hint := "Use `←` para extrair valores de Option em um bloco `do`.\nSe qualquer passo retornar `none`, o bloco inteiro retorna `none`." },
+  { name := "do2", dir := "14_do_notation",
+    hint := "Encadeie as duas verificações com a notação `do`.\nO operador `←` curto-circuita em `none`." },
+  { name := "do3", dir := "14_do_notation",
+    hint := "Use `let mut` para uma variável mutável,\n`for x in list do` para iteração,\ne `return` para o valor final." },
+
+  -- 15_io
+  { name := "io1", dir := "15_io",
+    hint := "`s!\"text {variable} text\"` é interpolação de strings.\n`IO.println` imprime uma linha no console.",
+    expectedOutput := some "Hello, Lean!\n" },
+  { name := "io2", dir := "15_io",
+    hint := "`List.range n` dá `[0, 1, ..., n-1]`.\nUse um laço `for` para iterar sobre ela e imprimir.",
+    expectedOutput := some "5\n4\n3\n2\n1\n" },
+
+  -- 16_implicit
+  { name := "implicit1", dir := "16_implicit",
+    hint := "`p.1` é o primeiro elemento de um par, `p.2` é o segundo.\nUse-os para construir o valor de retorno." },
+  { name := "implicit2", dir := "16_implicit",
+    hint := "Recurse na lista. A cada passo, compare o head\ncom o alvo usando `==`." },
+
+  -- 17_arrays
+  { name := "arrays1", dir := "17_arrays",
+    hint := "`.map` transforma cada elemento. `.foldl` combina elementos\nda esquerda para a direita com um acumulador. `.filter` mantém elementos\nque satisfazem um predicado." },
+  { name := "arrays2", dir := "17_arrays",
+    hint := "Use `Id.run do` com um laço `for` e `Array.push`\npara construir o array resultado." },
+
+  -- 18_namespaces
+  { name := "ns1", dir := "18_namespaces",
+    hint := "Defina funções dentro do namespace.\nUse `open MyMath in` antes do corpo da definição para acessá-las\nsem o prefixo do namespace." },
+  { name := "ns2", dir := "18_namespaces",
+    hint := "Recurse na lista. Compare cada elemento head com o alvo." },
+
+  -- 19_quiz2
+  { name := "quiz2", dir := "19_quiz2",
+    hint := "Combine notação `do`, laços mutáveis e funções polimórficas.\nCada uma usa técnicas dos últimos módulos." },
+
+  -- 20_exists
+  { name := "exists1", dir := "20_exists",
+    hint := "Forneça uma testemunha e uma prova com `⟨witness, proof⟩`.\nPara `exists_greater`, que número é sempre maior que `n`?" },
+  { name := "exists2", dir := "20_exists",
+    hint := "Extraia a testemunha com `let ⟨n, hn⟩ := h`, obtendo `n` e `hn : P n`.\n  Primeira prova: devolva-os com `exact ⟨n, hn⟩`. Segunda: `n > 0` dá\n  `n + 1 > 1`, então `exact ⟨n + 1, by omega⟩`." },
+
+  -- 21_cases_have
+  { name := "cases1", dir := "21_cases_have",
+    hint := "Para `And`, `cases` te dá os dois componentes.\nPara `Or`, `cases` te dá dois ramos — um para cada lado." },
+  { name := "have1", dir := "21_cases_have",
+    hint := "`have` introduz um fato intermediário:\n`have name := proof`. Construa até o resultado final passo a passo." },
+  { name := "cases2", dir := "21_cases_have",
+    hint := "`cases` em um Nat dá `zero` e `succ`.\n`cases` em um Bool dá `true` e `false`.\nTente `<;>` para aplicar uma tática a todos os objetivos resultantes." },
+
+  -- 22_calc
+  { name := "calc1", dir := "22_calc",
+    hint := "Use `rw [h]` para reescrever com uma hipótese.\nNo primeiro teorema, o esqueleto do calc já é dado — preencha os passos.\nNo segundo, escreva uma cadeia de calc: `calc f 5 _ = ... := by rw [h1] ...`" },
+  { name := "calc2", dir := "22_calc",
+    hint := "No primeiro teorema, preencha `exact h1` e `exact h2`.\nNos outros, escreva você mesmo uma cadeia de calc.\nUse `exact h` para desigualdades e `rw [h]` para igualdades." },
+
+  -- 23_classical
+  { name := "classical1", dir := "23_classical",
+    hint := "`Classical.em` dá `P ∨ ¬P` para qualquer proposição.\n`Classical.byContradiction` assume `¬P` e deriva `P` a partir de `False`." },
+  { name := "classical2", dir := "23_classical",
+    hint := "Na direção construtiva, use a hipótese diretamente.\nNa direção clássica, use `Classical.em` para dividir em casos." },
+
+  -- 24_nat_proofs
+  { name := "nat1", dir := "24_nat_proofs",
+    hint := "Estas são propriedades da adição sobre números naturais.\nTente `omega`, ou use lemas nomeados como `Nat.add_comm`." },
+  { name := "nat2", dir := "24_nat_proofs",
+    hint := "`omega` trata desigualdades de aritmética linear.\nAlternativamente, use lemas do namespace `Nat`." },
+  { name := "nat3", dir := "24_nat_proofs",
+    hint := "Use `induction` para `sumTo_formula`. O caso base se desdobra\ndiretamente. O passo indutivo precisa da IH e de reescrita aritmética." },
+
+  -- 25_list_proofs
+  { name := "list1", dir := "25_list_proofs",
+    hint := "`simp` conhece os lemas padrão de listas. Tente primeiro;\nse precisar, adicione `induction`." },
+  { name := "list2", dir := "25_list_proofs",
+    hint := "`simp` trata `map_length`, `map_id` e `reverse_length`.\nPara `map_id` você pode precisar de `induction`." },
+  { name := "list3", dir := "25_list_proofs",
+    hint := "Faça indução no primeiro argumento de lista.\nEm cada caso, `simp [myAppend]` desdobra sua definição." },
+
+  -- 26_final_quiz
+  { name := "quiz3", dir := "26_final_quiz",
+    hint := "Para funções: recurse em `.leaf` e `.node l v r`.\nPara provas por indução: `induction t` depois `simp [f, g, ...]`.\nPara o existencial: forneça um par `⟨witness, proof⟩`." }
+]
+
+private def introPtWelcome : String :=
+  "Bem-vindo ao Leanlings!\n\n" ++
+  "O Leanlings vai te ensinar Lean 4 através de pequenos exercícios.\n\n" ++
+  "Veja como funciona:\n" ++
+  "1. Cada exercício é um arquivo Lean com algo para corrigir\n" ++
+  "2. Abra o arquivo no seu editor e siga as instruções\n" ++
+  "3. Rode `lake exe leanlings run` para verificar sua solução\n" ++
+  "4. Rode `lake exe leanlings next` para avançar\n\n" ++
+  "Ou use `lake exe leanlings watch` para verificação automática!\n"
+
+private def introPtFinal : String :=
+  "Parabéns! Você completou todos os exercícios do Leanlings!\n\n" ++
+  "Agora você tem uma base sólida em Lean 4, incluindo:\n" ++
+  "  - Tipos básicos, definições e funções\n" ++
+  "  - Controle de fluxo e casamento de padrões\n" ++
+  "  - Structures e tipos indutivos\n" ++
+  "  - Recursão\n" ++
+  "  - Provar propriedades do seu código\n" ++
+  "  - Proposições e provas\n" ++
+  "  - Provas por tática e indução\n" ++
+  "  - Type classes\n" ++
+  "  - Notação do e IO\n" ++
+  "  - Argumentos implícitos, arrays e namespaces\n" ++
+  "  - Lógica existencial e clássica\n" ++
+  "  - Provas calculacionais\n" ++
+  "  - Provar propriedades de Nat e List\n\n" ++
+  "Continue explorando! Confira:\n" ++
+  "  - Theorem Proving in Lean 4: https://lean-lang.org/theorem_proving_in_lean4/\n" ++
+  "  - Functional Programming in Lean: https://lean-lang.org/functional_programming_in_lean/\n" ++
+  "  - Mathematics in Lean: https://leanprover-community.github.io/mathematics_in_lean/\n" ++
+  "  - Mathlib (a biblioteca de matemática do Lean): https://leanprover-community.github.io/mathlib4_docs/\n"
+
+/-- Curso introdutório em português: fundamentos de programação e prova em Lean 4. -/
+def introPt : Course :=
+  mkCourse "intro-pt" "Introdução ao Lean 4"
+    "Fundamentos de programação e prova de teoremas — 70 exercícios em 27 unidades."
+    introPtExercises (welcome := introPtWelcome) (final := introPtFinal)
+
 /-- All available courses, in display order. -/
 
 private def nngExercises : Array Exercise := #[
@@ -807,7 +1043,7 @@ def analysis : Course :=
     "Construct ℚ, then ℝ via Cauchy sequences — no Mathlib — and prove their theory."
     analysisExercises (welcome := analysisWelcome) (final := analysisFinal)
 
-def courses : Array Course := #[intro, nng, algebra, analysis]
+def courses : Array Course := #[intro, introPt, nng, algebra, analysis]
 
 /-- Qualified exercise ids must be unique within each course; otherwise progress
 tracking would be ambiguous again. -/
