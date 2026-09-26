@@ -11,4 +11,4 @@
   TODO: Substitua `sorry` pela string "Hello, Lean!"
 -/
 
-def greeting : String := "Hello, Lean!"
+def greeting : String := sorry
