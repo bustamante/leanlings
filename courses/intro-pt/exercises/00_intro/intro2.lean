@@ -11,4 +11,4 @@
         (Mantenha a anotação de tipo como `Nat`.)
 -/
 
-def favoriteNumber : Nat := 7
+def favoriteNumber : Nat := "seven"
